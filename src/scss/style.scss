@@ -58,19 +58,18 @@ body {
     border-radius: 0.5rem;
     border: none;
     outline: $color-background-middle solid 1px;
-    backface-visibility: hidden;
 
     &:hover {
-      background: $color-prime;
+      background: $color-primary;
       transform: scale(0.95);
       cursor: pointer;
     }
     &:last-child {
-      background: $color-prime;
+      background: $color-primary;
 
       &:hover {
         background: $color-background-dark;
-        outline: 3px solid $color-prime;
+        outline: 3px solid $color-primary;
       }
     }
   }
@@ -79,7 +78,7 @@ body {
 .historyList {
   width: 30%;
   height: 100vh;
-  background: $color-prime-gradient;
+  background: $color-primary-gradient;
   font-size: 3rem;
   overflow-y: auto;
 

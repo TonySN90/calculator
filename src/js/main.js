@@ -1,24 +1,29 @@
 import "./../scss/style.scss";
 
-const calcucaltor = function () {
+const calculator = function () {
   const btnsParentEl = document.querySelector(".inputBtns");
   const historyList = document.querySelector(".historyList");
 
   let currentNumber = 0,
     tempResult = 0,
     result = 0,
-    btnNumber,
-    operator;
+    btnNumber = "",
+    operator = "";
 
   const calculate = function () {
-    if (operator == "+") {
-      result = tempResult + currentNumber;
-    } else if (operator == "-") {
-      result = tempResult - currentNumber;
-    } else if (operator == "/") {
-      result = tempResult / currentNumber;
-    } else if (operator == "*") {
-      result = tempResult * currentNumber;
+    switch (operator) {
+      case "+":
+        result = tempResult + currentNumber;
+        break;
+      case "-":
+        result = tempResult - currentNumber;
+        break;
+      case "/":
+        result = tempResult / currentNumber;
+        break;
+      case "*":
+        result = tempResult * currentNumber;
+        break;
     }
     updateHistoryList();
     tempResult = result;
@@ -35,17 +40,17 @@ const calcucaltor = function () {
     }
   };
 
-  const replaceComma = function (string) {
-    return `${string}`.replace(".", ",");
+  const replaceComma = function (num) {
+    return `${num}`.replace(".", ",");
   };
 
   const updateCurrentNumber = function () {
-    let string = replaceComma(currentNumber);
+    const string = replaceComma(currentNumber);
     document.querySelector("#entryNumber").textContent = string;
   };
 
   const updateTempResult = function () {
-    let string = replaceComma(tempResult) + ` ${operator}`;
+    const string = replaceComma(tempResult) + ` ${operator}`;
     document.querySelector("#tempResult").textContent = string;
   };
 
@@ -68,66 +73,67 @@ const calcucaltor = function () {
     const el = e.target.closest(".btn");
     if (!el) return;
 
-    if (el.classList.contains("number")) {
-      if (el.textContent == ",") {
-        btnNumber = ".";
-      } else {
-        btnNumber = el.textContent;
-      }
-      createNumberChain();
-      updateCurrentNumber();
-    }
-
-    if (el.classList.contains("operator")) {
-      if (currentNumber == 0 && !operator) return;
-
-      if (operator) {
-        calculate();
-        updateTempResult();
-      } else {
-        tempResult = currentNumber;
-      }
-      operator = el.textContent;
-      currentNumber = 0;
-      updateTempResult();
-      updateCurrentNumber();
-    }
-
-    if (el.classList.contains("negativ")) {
-      currentNumber = -currentNumber;
-      updateCurrentNumber();
-    }
-
-    if (el.classList.contains("pi")) {
-      let pi = 3.14159265359;
-      currentNumber = pi;
-      updateCurrentNumber();
-    }
-
-    if (el.classList.contains("equal")) {
-      if (operator) {
-        calculate();
-        updateTempResult();
-        resetData(tempResult);
-      }
-    }
-
-    if (el.classList.contains("del")) {
-      if (currentNumber != 0) {
-        let delNumber = `${currentNumber}`.slice(0, -1);
-        if (delNumber.length == 0) {
-          delNumber = 0;
+    switch (true) {
+      case el.classList.contains("number"):
+        if (el.textContent == ",") {
+          btnNumber = ".";
+        } else {
+          btnNumber = el.textContent;
         }
-        currentNumber = delNumber;
+        createNumberChain();
         updateCurrentNumber();
-      }
-    }
+        break;
 
-    if (el.classList.contains("reset")) {
-      resetData();
-      historyList.textContent = "";
+      case el.classList.contains("operator"):
+        if (currentNumber == 0 && !operator) return;
+
+        if (operator) {
+          calculate();
+          updateTempResult();
+        } else {
+          tempResult = currentNumber;
+        }
+        operator = el.textContent;
+        currentNumber = 0;
+        updateTempResult();
+        updateCurrentNumber();
+        break;
+
+      case el.classList.contains("negativ"):
+        currentNumber = -currentNumber;
+        updateCurrentNumber();
+        break;
+
+      case el.classList.contains("pi"):
+        currentNumber = Math.PI;
+        updateCurrentNumber();
+        break;
+
+      case el.classList.contains("equal"):
+        if (operator) {
+          calculate();
+          updateTempResult();
+          resetData(tempResult);
+        }
+        break;
+
+      case el.classList.contains("del"):
+        if (currentNumber != 0) {
+          let delNumber = `${currentNumber}`.slice(0, -1);
+          if (delNumber.length == 0) {
+            delNumber = 0;
+          }
+          currentNumber = delNumber;
+          updateCurrentNumber();
+        }
+        break;
+
+      case el.classList.contains("reset"):
+        resetData();
+        historyList.textContent = "";
+        break;
     }
   });
 };
 
-calcucaltor();
+calculator();
