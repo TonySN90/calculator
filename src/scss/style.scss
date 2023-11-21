@@ -1,0 +1,90 @@
+@import "preset";
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $color-background-dark;
+  color: $color-text-bright;
+
+  font-family: "Roboto", sans-serif;
+  font-size: 10px;
+}
+* {
+  box-sizing: border-box;
+}
+
+.calcContainer {
+  display: flex;
+}
+
+.container {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-inline: 1rem;
+}
+
+.temporary-field {
+  height: 10%;
+  font-size: 5rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: end;
+
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+
+  div:first-child {
+    font-size: 3.5rem;
+  }
+}
+
+.inputBtns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 0.8rem;
+  height: 60%;
+
+  button {
+    background-color: transparent;
+    color: $color-text-bright;
+    transition: all 0.2s;
+    font-size: 5rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: $color-background-middle solid 1px;
+    backface-visibility: hidden;
+
+    &:hover {
+      background: $color-prime;
+      transform: scale(0.95);
+      cursor: pointer;
+    }
+    &:last-child {
+      background: $color-prime;
+
+      &:hover {
+        background: $color-background-dark;
+        outline: 3px solid $color-prime;
+      }
+    }
+  }
+}
+
+.historyList {
+  width: 30%;
+  height: 100vh;
+  background: $color-prime-gradient;
+  font-size: 3rem;
+  overflow-y: auto;
+
+  div {
+    padding: 0.5rem;
+    padding-block: 1rem;
+  }
+}
